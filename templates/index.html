@@ -1,0 +1,18 @@
+$def with(sdict)
+$if not sdict:
+	<p>.....</p>
+$else:
+	<table>
+	$for i in sdict:
+		<tr>
+		<td>$i</td>
+		<td>$sdict[i]</td>
+		</tr>
+	</table>
+		
+<form method="post" action="Inquiry">
+	<p>
+		<input type="text" name="haoma" />
+		<input type="submit" value="查询" />
+	</p>
+</form>
