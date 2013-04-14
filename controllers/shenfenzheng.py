@@ -38,7 +38,7 @@ class Inquiry:
 		for i in range(len(haoma)-1):
 			if haoma[i] > '9' or haoma[i] < '0' :
 				return render.error('身份证号码不正确，请重新输入!', '/')
-		if haoma[-1] >'9' or haoma[-1] < '0' and (haoma[-1] != 'x' or haoma[-1] != 'X'):
+		if (haoma[-1] >'9' or haoma[-1] < '0') and (haoma[-1] != 'x' and haoma[-1] != 'X'):
 			return render.error('身份证号码不正确，请重新输入!', '/')
 		sdict['身份证号码：'] = haoma
 		if int(haoma[-2]) % 2:
@@ -67,8 +67,12 @@ class Inquiry:
 			sum += xishu[i]*int(haoma[i]) 
 		yushu = sum % 11
 		if haoma[-1] == 'x' or haoma[-1] == 'X':
-			haoma[-1] = '10'
-		if last_num[yushu] == int(haoma[-1]):
+			#haoma = haoma[:-1] + '10'
+			if last_num[yushu] == 10:
+				sdict['校验位：'] = '正确'
+			else:
+				sdict['校验位：'] = '不正确'
+		elif last_num[yushu] == int(haoma[-1]):
 			sdict['校验位：'] = '正确'
 		else:
 			sdict['校验位：'] = '不正确'
